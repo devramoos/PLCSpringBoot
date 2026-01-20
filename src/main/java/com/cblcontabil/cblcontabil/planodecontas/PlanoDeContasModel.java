@@ -24,4 +24,6 @@ public class PlanoDeContasModel {
     private String descricao;
 
     private int grau;
+
+    private String empresa;
 }

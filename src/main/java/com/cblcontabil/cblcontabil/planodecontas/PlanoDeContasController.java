@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/planodecontas")
@@ -30,9 +31,10 @@ public class PlanoDeContasController {
         return planoDeContasService.listarConta();
     }
 
-    @GetMapping("/listaporid")
-    public String listarContaPorCodigo(){
-        return "Conta por id mostrada com sucesso";
+    @GetMapping("/listacontaporcodigo/{codigo}")
+    public PlanoDeContasModel buscarPorCodigo(@PathVariable int codigo) {
+        return planoDeContasService.buscarContaPorCodigo(codigo)
+                .orElse(null);
     }
 
     @PutMapping("/alterarConta")

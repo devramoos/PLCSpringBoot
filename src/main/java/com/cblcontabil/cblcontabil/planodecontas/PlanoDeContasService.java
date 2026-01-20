@@ -3,6 +3,7 @@ package com.cblcontabil.cblcontabil.planodecontas;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlanoDeContasService {
@@ -16,4 +17,9 @@ public class PlanoDeContasService {
     public List<PlanoDeContasModel> listarConta(){
         return planoDeContasRepository.findAll();
     }
+
+    public Optional<PlanoDeContasModel> buscarContaPorCodigo(int codigo){
+        return planoDeContasRepository.findByCodigo(codigo);
+    }
+
 }
