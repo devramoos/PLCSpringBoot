@@ -29,7 +29,7 @@ public class PlanoDeContasController {
         return "Boas vindas";
     }
 
-    @PostMapping("/criar")
+    @PostMapping
     @Operation(summary = "Cria uma nova conta", description = "Essa rota cria uma nova conta contábil e inseri no banco de dados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Conta contábil criado com sucesso"),
@@ -43,13 +43,13 @@ public class PlanoDeContasController {
                 .body("Conta criada com sucesso: " + novaConta.getDescricao() + " (Código): " + novaConta.getCodigo());
     }
 
-    @GetMapping("/listar")
+    @GetMapping
     public ResponseEntity<List<PlanoDeContasDTO>>  listarConta() {
         List<PlanoDeContasDTO> contas = planoDeContasService.listarConta();
         return ResponseEntity.ok(contas);
     }
 
-    @GetMapping("/buscarcontaporcodigo/{codigo}")
+    @GetMapping("/{codigo}")
     @Operation(summary = "Busca uma conta pelo codigo", description = "Essa rota busca uma conta contabil no banco de dados pelo codigo enviado pelo user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Conta contabil foi encontrada com sucesso"),
@@ -68,7 +68,7 @@ public class PlanoDeContasController {
         }
     }
 
-    @PutMapping("/alterarconta/{codigo}")
+    @PutMapping("/{codigo}")
     @Operation(summary = "Altera conta pelo codigo", description = "Essa rota altera uma conta contabil no banco de dados pelo codigo enviado pelo user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Conta contabil foi alterada com sucesso"),
@@ -92,7 +92,7 @@ public class PlanoDeContasController {
 
     }
 
-    @DeleteMapping("/deletarconta/{codigo}")
+    @DeleteMapping("/{codigo}")
         public ResponseEntity<String> deletarConta(@PathVariable int codigo) {
         PlanoDeContasDTO conta = planoDeContasService.buscarContaPorCodigo(codigo)
             .orElse(null);
