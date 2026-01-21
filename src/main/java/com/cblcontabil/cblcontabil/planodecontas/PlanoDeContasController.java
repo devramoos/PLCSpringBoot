@@ -22,36 +22,29 @@ public class PlanoDeContasController {
     }
 
     @PostMapping("/criar")
-    public PlanoDeContasModel criarContas(@RequestBody PlanoDeContasModel planoDeContasModel){
-        return planoDeContasService.criarConta(planoDeContasModel);
+    public PlanoDeContasDTO criarContas(@RequestBody PlanoDeContasDTO planoDeContasDTO){
+        return planoDeContasService.criarConta(planoDeContasDTO);
     }
 
     @GetMapping("/listar")
-    public List<PlanoDeContasModel> listarConta(){
+    public List<PlanoDeContasDTO> listarConta(){
         return planoDeContasService.listarConta();
     }
 
     @GetMapping("/buscarcontaporcodigo/{codigo}")
-    public PlanoDeContasModel buscarPorCodigo(@PathVariable int codigo) {
+    public PlanoDeContasDTO buscarPorCodigo(@PathVariable int codigo) {
         return planoDeContasService.buscarContaPorCodigo(codigo)
                 .orElse(null);
     }
 
     @PutMapping("/alterarconta/{codigo}")
-    public PlanoDeContasModel alterarConta(@PathVariable int codigo){
-        PlanoDeContasModel conta = planoDeContasService.buscarContaPorCodigo(codigo)
-                .orElse(null);
-        if (conta != null){
-            planoDeContasService.atualizarConta(codigo);
-        }else {
-            throw new RuntimeException("Conta do codigo" + codigo + "não encontrada");
-        }
-        return conta;
+    public PlanoDeContasDTO alterarConta(@PathVariable int codigo, @RequestBody PlanoDeContasDTO planoDeContasDTO){
+        return planoDeContasService.atualizarConta(codigo, planoDeContasDTO);
     }
 
     @DeleteMapping("/deletarconta/{codigo}")
     public void deletarConta(@PathVariable int codigo){
-        PlanoDeContasModel conta = planoDeContasService.buscarContaPorCodigo(codigo)
+        PlanoDeContasDTO conta = planoDeContasService.buscarContaPorCodigo(codigo)
                 .orElse(null);
 
         if (conta != null) {
